@@ -9,7 +9,10 @@ let numberOfRolls = 0;
 let players = { player: 1 };
 // records the player's game history
 let gameLog = [];
+//records if the game has ended
 let gameEnd = Boolean(false);
+//records number of mystery prizes won
+let prizeWin = 0;
 
 function rollDice() {
     return Math.floor(Math.random() * 6) + 1;
@@ -41,17 +44,21 @@ function movePlayer(player) {
     // records move to game history
     gameLog.push(`${player} rolled ${roll} and moved to ${newPosition}`);
 
+    // mystery prize event
     if (mysteryPrizes.includes(newPosition)) {
         document.getElementById("game-message").innerText = `${player}, you won a mystery prize! You will receive it on results day.`;
         gameLog.push(`${player} won a mystery prize from tile ${newPosition}`);
+        prizeWin += 1;
     }
 
+    // snake event
     if (snakes[newPosition]) {
         players[player] = snakes[newPosition];
         document.getElementById("game-message").innerText = `${player} got bitten by a snake! Moved to ${players[player]}`;
         gameLog.push(`${player} was bitten by a snake on tile ${newPosition} and moved back to tile ${players[player]}`);
     }
 
+    // ladder event
     if (ladders[newPosition]) {
         players[player] = ladders[newPosition];
         document.getElementById("game-message").innerText = `${player} climbed a ladder! Moved to ${players[player]}`;
@@ -60,11 +67,11 @@ function movePlayer(player) {
 
     document.getElementById("player-position").innerText = `You are on square ${players[player]}`;
 
-
+    // endgame event
     if (players[player] === boardSize) {
         document.getElementById("game-message").innerText = `${player} has won the game!`;
         document.getElementById("game-message").innerText = `${player} used ${numberOfRolls} rolls to win`;
-        gameLog.push(`Game ends with ${numberOfRolls} rolls.`)
+        gameLog.push(`Game ends with ${numberOfRolls} rolls, and ${prizeWin} mystery prizes won.`)
         gameEnd = true;
         saveToLeaderboard(player);
     }

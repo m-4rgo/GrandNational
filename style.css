@@ -16,6 +16,11 @@ h1 {
     color: black;
 }
 
+.entryForm button {
+    font-size: 18px;
+    padding: 5px;
+}
+
 button {
     padding: 20px;
     font-size: 25px;
@@ -24,6 +29,12 @@ button {
 .split {
     display: flex;
     align-items: center;
+}
+
+#details-saved {
+    padding: 20px;
+    background-color: pink;
+    color: blue;
 }
 
 #starting-position {

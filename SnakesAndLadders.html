@@ -8,11 +8,32 @@
 </head>
 <body>
 <h1>Little Rat Grand National: Snakes 'n' Ladders</h1>
+  <form id="entryForm">
+    <h2>Entry form</h2>
+    <label for="name">Name:</label>
+    <input type="text" id="name" required><br><br>
+
+    <label for="profile-link">CS Profile Link:</label>
+    <input type="url" id="profile-link" required><br><br>
+
+    <label for="rat">Rat Name:</label>
+    <input type="text" id="rat" required><br><br>
+
+    <label for="rat-link">Rat adoption page:</label>
+    <input type="url" id="rat-link" required><br><br>
+
+    <button type="submit">Save Details and Play the Game!</button>
+  </form>
 <div class="split">
   <img src="board.png" alt="Image of the game board. Not necessary to play!">
   <p id="game-log">Your game moves will be recorded here.</p>
 </div>
-<p>Click the button to roll the dice and move along the board.</p>
+<p>Click the button to roll the dice and move along the board.
+  <br>There are no graphics because I didn't have time to code it so it's just a text game :)
+  <br>If you want to play a practice round, you can play without entering a name, BUT--
+  <br>--make sure you remember to refresh the page and fill out the form above when you are ready to submit your real attempt!
+  <br>If you forget, your entry won't be recorded :(</p>
+<p id="details-saved">This is a practice run, your details were not saved.</p>
 <button onclick="playTurn()">Roll Dice</button>
 <p id="roll-feedback">Your roll feedback will appear here when you make your first roll.</p>
 <p id="game-message">Important game messages will appear here.</p>
