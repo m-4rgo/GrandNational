@@ -1,0 +1,58 @@
+body {
+    font-family: Verdana;
+    background-color: #8EBA14FF;
+    color: #0A8209FF;
+    font-weight: bold;
+}
+
+    /* more colours */
+    /* #588f26; */
+    /* #708f1c; */
+    /* #578B28FF
+    d3b95b
+    7FECE4FF*/
+
+h1 {
+    color: black;
+}
+
+button {
+    padding: 20px;
+    font-size: 25px;
+}
+
+.split {
+    display: flex;
+    align-items: center;
+}
+
+#starting-position {
+    padding: 20px;
+    background-color: #a14a4a;
+    color: black;
+}
+
+#player-position {
+    padding: 20px;
+    background-color: #588f26;
+    color: #d3b95b;
+}
+
+#game-message {
+    padding: 20px;
+    background-color: #708f1c;
+    color: #ffffff;
+}
+
+#roll-feedback {
+    background-color: green;
+    padding: 20px;
+    color: orange;
+}
+
+#game-log {
+    padding: 20px;
+    background-color: #a14a4a;
+    color: #1f1d1d;
+}
+

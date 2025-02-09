@@ -7,11 +7,17 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Snakes and Ladders</h1>
-<p>Click the button to roll the dice and move your player.</p>
+<h1>Little Rat Grand National: Snakes 'n' Ladders</h1>
+<div class="split">
+  <img src="board.png" alt="Image of the game board. Not necessary to play!">
+  <p id="game-log">Your game moves will be recorded here.</p>
+</div>
+<p>Click the button to roll the dice and move along the board.</p>
 <button onclick="playTurn()">Roll Dice</button>
-<p id="player-position">Player Position: 1</p>
-<p id="game-message"></p>
+<p id="roll-feedback">Your roll feedback will appear here when you make your first roll.</p>
+<p id="game-message">Important game messages will appear here.</p>
+<p id="player-position">Your current square is 1</p>
+<p id="starting-position">You started on square 1</p>
 <script src="script.js"></script>
 </body>
 </html>
