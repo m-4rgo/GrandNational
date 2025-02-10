@@ -18,7 +18,7 @@ let gameStart = Boolean(false);
 // records whether the player has entered their details for the live attempt
 let formSubmitted = Boolean(false);
 
-// loadGameState();
+loadGameState();
 
 function rollDice() {
     return Math.floor(Math.random() * 6) + 1;
