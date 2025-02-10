@@ -18,6 +18,8 @@ let gameStart = Boolean(false);
 // records whether the player has entered their details for the live attempt
 let formSubmitted = Boolean(false);
 
+loadGameState();
+
 function rollDice() {
     return Math.floor(Math.random() * 6) + 1;
 }
@@ -86,6 +88,9 @@ function movePlayer(player) {
 
     //updates the game log.
     updateGameLog();
+    if (formSubmitted === true) {
+        saveGameState();
+    }
 }
 
 // todo: remember to add another elif for when a final game has already been submitted
@@ -117,6 +122,7 @@ function saveDetails() {
             `When the game has finished, you will be redirected while your results are submitted to the server. \n\nYou may need to enter a Captcha (sorry).` +
             `\n\nThese are the details you are entering with: \nScreenshot or copy/paste these details and add them to the GrandNational oekaki topic to notify us that you have entered!\nmake sure they are correct before pressing the dice roll button, you won't be able to change them after:` +
             `\n\n ${playerDetails}`;
+        saveGameState();
     }
 }
 
@@ -152,13 +158,78 @@ function submitEntry() {
     document.getElementById("entryForm").submit();
 }
 
-// saves the run to the local leaderboard
-function saveToLeaderboard(player) {
-    let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-    leaderboard.push({ player, date: new Date().toISOString() });
-    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-    console.log(`Leaderboard updated!`);
+// checks if a form has been submitted, if so, cannot restart and must finish the game.
+function saveGameState() {
+
+    if (formSubmitted === true) {
+        let username = document.getElementById("name").value;
+        let rat = document.getElementById("rat").value;
+        let userUrl = document.getElementById("profile-link").value;
+        let ratUrl = document.getElementById("rat-link").value;
+
+        let playerDetails = {
+            username,
+            rat,
+            userUrl,
+            ratUrl
+        };
+
+        //save the message for if entry details have been saved
+        let detailsSavedMessage = document.getElementById("details-saved").innerText; // Get the message
+
+
+        let gameState = {
+            players,
+            numberOfRolls,
+            gameLog,
+            gameEnd,
+            prizeWin,
+            gameStart,
+            formSubmitted,
+            playerDetails,
+            detailsSavedMessage,
+        };
+        localStorage.setItem("gameState", JSON.stringify(gameState));
+    }
 }
+
+// loads the user's play data from their last session if they submitted an entry form.
+function loadGameState() {
+
+    let savedState = JSON.parse(localStorage.getItem("gameState"));
+    if (savedState) {
+        players = savedState.players;
+        numberOfRolls = savedState.numberOfRolls;
+        gameLog = savedState.gameLog;
+        gameEnd = savedState.gameEnd;
+        prizeWin = savedState.prizeWin;
+        gameStart = savedState.gameStart;
+        formSubmitted = savedState.formSubmitted;
+
+        // Restore player details if they exist
+        if (savedState.playerDetails) {
+            document.getElementById("name").value = savedState.playerDetails.username;
+            document.getElementById("rat").value = savedState.playerDetails.rat;
+            document.getElementById("profile-link").value = savedState.playerDetails.userUrl;
+            document.getElementById("rat-link").value = savedState.playerDetails.ratUrl;
+        }
+
+        // Restore the saved message in the "details-saved" element
+        if (savedState.detailsSavedMessage) {
+            document.getElementById("details-saved").innerText = savedState.detailsSavedMessage;
+        }
+
+        updateGameLog();
+    }
+}
+
+// saves the run to the leaderboard
+// function saveToLeaderboard(player) {
+//     let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+//     leaderboard.push({ player, date: new Date().toISOString() });
+//     localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+//     console.log(`Leaderboard updated!`);
+// }
 
 // Updates the game log with each new move or event
 function updateGameLog() {
