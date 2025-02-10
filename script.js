@@ -79,8 +79,7 @@ function movePlayer(player) {
         document.getElementById("game-message").innerText = `${player} and their rat have crossed the line! They used ${numberOfRolls} rolls to finish.`;
         gameLog.push(`Game ends with ${numberOfRolls} rolls, and ${prizeWin} mystery prizes won.`)
         gameEnd = true;
-        //if details saved is true then:
-        // saveToLeaderboard(player);
+        // submits the entry to server at the end of the game if entry form has been submitted
         if (formSubmitted === true) {
             submitEntry(player);
         }
@@ -93,19 +92,12 @@ function movePlayer(player) {
     }
 }
 
-// todo: remember to add another elif for when a final game has already been submitted
-// todo: that says something like "you already submitted your final run"
 // saves the details that the player entered and prints them to screen
 function saveDetails() {
     // checks if a game has already started
     if (gameStart === true && formSubmitted === false) {
         document.getElementById("details-saved").innerText = "You can't save your details now, the practice run has already started. Refresh the page if you want to start your final attempt.";
     } else {
-        // todo: check that all form fields are filled (not working)
-        // if (!name) {
-        //     alert("Please fill out the name field.");
-        //     return;
-        // }
         //print details to screen
         formSubmitted = true;
         // save details into variables
@@ -148,10 +140,6 @@ function submitEntry() {
     // Prepare the game log (you can include relevant game data here)
     let gameData = `Game Log:\n${gameLog.join("\n")}\n\nTotal Rolls: ${numberOfRolls}, Prizes Won: ${prizeWin}`;
 
-    // Debugging: check the values before setting them
-    // console.log("Player Details: ", playerDetails);
-    // console.log("Game Data: ", gameData);
-
     // Set the hidden input fields
     document.getElementById("playerDetails").value = playerDetails;
     document.getElementById("gameData").value = gameData;
@@ -162,7 +150,6 @@ function submitEntry() {
 
 // checks if a form has been submitted, if so, cannot restart and must finish the game.
 function saveGameState() {
-
     if (formSubmitted === true) {
         let username = document.getElementById("name").value;
         let rat = document.getElementById("rat").value;
@@ -177,8 +164,7 @@ function saveGameState() {
         };
 
         //save the message for if entry details have been saved
-        let detailsSavedMessage = document.getElementById("details-saved").innerText; // Get the message
-
+        let detailsSavedMessage = document.getElementById("details-saved").innerText;
 
         let gameState = {
             players,
@@ -224,14 +210,6 @@ function loadGameState() {
         updateGameLog();
     }
 }
-
-// saves the run to the leaderboard
-// function saveToLeaderboard(player) {
-//     let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-//     leaderboard.push({ player, date: new Date().toISOString() });
-//     localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-//     console.log(`Leaderboard updated!`);
-// }
 
 // Updates the game log with each new move or event
 function updateGameLog() {
