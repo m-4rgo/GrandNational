@@ -120,7 +120,7 @@ function saveDetails() {
         // print screen "your details have been saved and your attempt is being recorded. If you decide to play again, only your first attempt will be recorded."
         document.getElementById("details-saved").innerText = `Your details were saved. This is your real attempt! \n\n` +
             `When the game has finished, you will be redirected while your results are submitted to the server. \n\nYou may need to enter a Captcha (sorry).` +
-            `\n\nThese are the details you are entering with: \nScreenshot or copy/paste these details and add them to the GrandNational oekaki topic to notify us that you have entered!\nmake sure they are correct before pressing the dice roll button, you won't be able to change them after:` +
+            `\n\nThese are the details you are entering with: \nScreenshot or copy/paste these details and add them to the GrandNational oekaki topic to notify us that you have entered!\nmake sure they are correct before pressing the dice roll button, you won't be able to change them after the game ends:` +
             `\n\n ${playerDetails}`;
         saveGameState();
     }
