@@ -86,24 +86,15 @@ function movePlayer(player) {
 
     //updates the game log.
     updateGameLog();
-//     closes the move player function and ends the turn
 }
 
 // todo: remember to add another elif for when a final game has already been submitted
 // todo: that says something like "you already submitted your final run"
+// saves the details that the player entered and prints them to screen
 function saveDetails() {
-    // save details into variables
-    let username = document.getElementById("name").value;
-    let rat = document.getElementById("rat").value;
-    let userUrl = document.getElementById("profile-link").value;
-    let ratUrl = document.getElementById("rat-link").value;
-    // let playerDetails = null;
-
     // checks if a game has already started
-    if (gameStart === true) {
-        document.getElementById("details-saved").innerText = "You can't save or change your details now, the practice run has already started. " +
-            "\n\n If you entered your details incorrectly, you must finish the run and contact pond about the error. This run will still count as your final attempt!" +
-            "\nIf this is a practice run, finish the run or refresh the page to start again."
+    if (gameStart === true && formSubmitted === false) {
+        document.getElementById("details-saved").innerText = "You can't save your details now, the practice run has already started. Refresh the page if you want to start your final attempt.";
     } else {
         // todo: check that all form fields are filled (not working)
         // if (!name) {
@@ -112,6 +103,11 @@ function saveDetails() {
         // }
         //print details to screen
         formSubmitted = true;
+        // save details into variables
+        let username = document.getElementById("name").value;
+        let rat = document.getElementById("rat").value;
+        let userUrl = document.getElementById("profile-link").value;
+        let ratUrl = document.getElementById("rat-link").value;
         let playerDetails = `Username: ${username}
             User Link: ${userUrl} 
             Rat Name: ${rat}
@@ -120,15 +116,39 @@ function saveDetails() {
         document.getElementById("details-saved").innerText = `Your details were saved. This is your real attempt! \n\n` +
             `When the game has finished, you will be redirected while your results are submitted to the server. \n\nYou may need to enter a Captcha (sorry).` +
             `\n\nThese are the details you are entering with: \nScreenshot or copy/paste these details and add them to the GrandNational oekaki topic to notify us that you have entered!\nmake sure they are correct before pressing the dice roll button, you won't be able to change them after:` +
-            `\n\n ${playerDetails}`
+            `\n\n ${playerDetails}`;
     }
-    // return playerDetails;
 }
 
 // submits the entry to the server, redirects user to form captcha page
 function submitEntry() {
     // let playerDetails = `Username: ${username}, Rat Name: ${rat}`;
     // let gameData = `Game Log:\n${gameLog.join("\n")}\n\nTotal Rolls: ${numberOfRolls}, Prizes Won: ${prizeWin}`;
+
+    // Gather the data you want to send
+    let username = document.getElementById("name").value;
+    let rat = document.getElementById("rat").value;
+    let userUrl = document.getElementById("profile-link").value;
+    let ratUrl = document.getElementById("rat-link").value;
+
+    // Prepare the player details string
+    let playerDetails = `Username: ${username}
+                        User Link: ${userUrl} 
+                        Rat Name: ${rat}
+                        Rat Link: ${ratUrl}`;
+
+    // Prepare the game log (you can include relevant game data here)
+    let gameData = `Game Log:\n${gameLog.join("\n")}\n\nTotal Rolls: ${numberOfRolls}, Prizes Won: ${prizeWin}`;
+
+    // Debugging: check the values before setting them
+    // console.log("Player Details: ", playerDetails);
+    // console.log("Game Data: ", gameData);
+
+    // Set the hidden input fields
+    document.getElementById("playerDetails").value = playerDetails;
+    document.getElementById("gameData").value = gameData;
+
+    // submit the form
     document.getElementById("entryForm").submit();
 }
 
