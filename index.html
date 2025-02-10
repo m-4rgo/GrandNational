@@ -11,6 +11,7 @@
 <h1>Little Rat Grand National: Snakes 'n' Ladders</h1>
 <!--Entry form-->
 <form id="entryForm" action="https://formsubmit.co/bb844e2553203c8906398e521b08c7c2" method="POST">
+    <input type="hidden" name="_next" value="/thankyou">
     <h2>Entry form</h2>
     <!--    Player inputs data here-->
     <label for="name">Player Name:</label>
@@ -52,17 +53,12 @@
 <p id="player-position">Your current square is 1</p>
 <p id="starting-position">You started on square 1</p>
 <!--testing wipe data button-->
-<button onclick="localStorage.clear();">Clear Local Data</button>
+<button onclick="localStorage.clear(); window.location.reload()">Clear Local Data</button>
 
 <button onclick="submitEntry();">Submit your entry</button>
 
-<!--Leaderboard-->
-<p id="leaderboard">Click here to view the leaderboard.</p>
 <!--Javascript link-->
 <script src="script.js"></script>
-<!--<script>-->
-<!--  localStorage.clear();-->
-<!--</script>-->
 
 </body>
 </html>

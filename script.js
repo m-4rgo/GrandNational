@@ -171,7 +171,7 @@ function saveGameState() {
             username,
             rat,
             userUrl,
-            ratUrl
+            ratUrl,
         };
 
         //save the message for if entry details have been saved
